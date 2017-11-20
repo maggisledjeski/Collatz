@@ -2,9 +2,15 @@
 
 uinput = int(raw_input("Enter a number: "))
 print "you entered", uinput
-if uinput%2 == 0:
-    print uinput, "is even."
-else:
-    print uinput, "is odd."
+
+while uinput != 1:
+    if uinput%2 == 0:
+        uinput = uinput/2
+        print uinput
+        #print uinput, "is even."
+    else:
+        uinput = (uinput*3)+1
+        print uinput
+        #print uinput, "is odd."
     
 

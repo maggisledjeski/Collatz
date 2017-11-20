@@ -5,21 +5,26 @@ public class Diffusion
 {
     static public void Main()
     {
-        int input;  //user input for Msize
-        Console.WriteLine("Enter test number: ");
+        int input;  //user input
+        Console.WriteLine("Enter a positive integer: ");
         input = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("The input is: " + input);
 
-        if(input%2 == 0)
+        while(input != 1)
         {
-            Console.WriteLine(input + " is even.");
-        }
-        else 
-        {
-            Console.WriteLine(input + " is odd.");
-        }
-    
-    }
-    
+            if(input%2 == 0)
+            {
+                input = input/2;
+                Console.WriteLine(input);
+                //Console.WriteLine(input + " is even.");
+            }
+            else 
+            {
+                input = (input*3)+1;
+                Console.WriteLine(input);
+                //Console.WriteLine(input + " is odd.");
+            }
+        }    
+    }    
 }
 

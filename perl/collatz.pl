@@ -7,11 +7,18 @@ my $input = <STDIN>;
 chomp $input;
 print "You typed: $input\n";
 
-if($input % 2 == 0)
+while($input != 1)
 {
-    print "$input is even.\n";
-}
-else
-{
-    print "$input is odd.\n";
+    if($input % 2 == 0)
+    {
+        $input = $input/2;
+        print "$input\n";
+        #print "$input is even.\n";
+    }
+    else
+    {
+        $input = ($input*3)+1;
+        print "$input\n";
+        #print "$input is odd.\n";
+    }
 }

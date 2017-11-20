@@ -7,10 +7,16 @@ begin
     Ada.Integer_Text_IO.Get(I);
     Ada.Text_IO.Put_Line(Integer'Image(I));
 
-    if (I mod 2) = 0 then
-        Ada.Text_IO.Put("input is even");
-    else
-        Ada.Text_IO.Put("input is odd.");
-    end if;
+    while I /= 1 loop
+        if (I mod 2) = 0 then
+            I := I/2;
+            Ada.Text_IO.Put_Line(Integer'Image(I));
+            --Ada.Text_IO.Put("input is even");
+        else
+            I := (I*3)+1;
+            Ada.Text_IO.Put_line(Integer'Image(I));
+            --Ada.Text_IO.Put("input is odd.");
+        end if;
+    end loop;
 
 end collatz;
