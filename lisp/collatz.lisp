@@ -6,12 +6,16 @@
 (setf N (read))
 (format t "~D ~%" N)
 
+(defvar num)
+(setf num 0)
+
 (loop 
     (if (= (mod N 2) 0)
         (progn
         ;(format t "~D is even." N)
         (setf N (/ N 2))
-        (format t "~D~%" N))
+        (format t "~D~%" N)
+        (setf num (+ num 1)))
     )
 
     (if (= N 1)
@@ -22,8 +26,10 @@
         (progn
         ;(format t "~D is odd." N)
         (setf N (+ (* N 3) 1))
-        (format t "~D~%" N))
+        (format t "~D~%" N)
+        (setf num (+ num 1)))
     )
     
     (when (= N 1) (return N))
 )
+(format t "Count of numbers in the sequence: ~D~%" num)

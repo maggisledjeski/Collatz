@@ -10,6 +10,8 @@ public class Diffusion
         input = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("The input is: " + input);
 
+        int count = 0;
+
         while(input != 1)
         {
             if(input%2 == 0)
@@ -24,7 +26,9 @@ public class Diffusion
                 Console.WriteLine(input);
                 //Console.WriteLine(input + " is odd.");
             }
-        }    
+            count = count + 1;
+        } 
+        Console.WriteLine("Count of numbers in the sequence: " + count);   
     }    
 }
 

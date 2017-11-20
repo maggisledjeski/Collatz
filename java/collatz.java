@@ -11,6 +11,8 @@ public class collatz {
 
         System.out.println(n);  //prints the user input
     
+        int count = 0;
+        
         while(n != 1)
         {
             if(n%2 == 0)    //uses mod to determine if the remainder is 0 or 1 if 0 the input is even, 1 if the input is odd.
@@ -25,6 +27,8 @@ public class collatz {
                 System.out.println(n);
                 //System.out.println(n + " is odd.");
             }
+            count = count + 1;
         }
+        System.out.println("Count of numbers in the sequence: " + count);
     }
 }

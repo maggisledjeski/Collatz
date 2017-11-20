@@ -5,7 +5,9 @@ use strict;
 print "Enter your input:\n";
 my $input = <STDIN>;
 chomp $input;
-print "You typed: $input\n";
+print "Input entered: $input\n";
+
+my $count = 0;
 
 while($input != 1)
 {
@@ -21,4 +23,6 @@ while($input != 1)
         print "$input\n";
         #print "$input is odd.\n";
     }
+    $count = $count + 1;
 }
+print "Count of numbers in the sequence: $count\n";
