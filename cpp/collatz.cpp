@@ -1,31 +1,87 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
+struct numbers {
+    int num;
+    int steps;
+} s[10];
 
-int main(int argc, char* argv[])
+int smallestIndex(struct numbers (& array)[10]);    //returns the index of the number with the smallest amount of steps
+int numOfSteps(int in); //returns the number of steps per sequence for a number
+int main ()
 {
-    int input;      //user input number
-    cout << "Enter a positive integer: " << endl;
-    cin >> input;   //gets the input from the user
-    cout << input << endl;  //prints the user input
-
-    int count = 0;
-
-    while(input != 1)
+    int input;      //user input number range number
+    cout << "Enter a positive range number: " << endl;
+    cin >> input;
+    
+    //fills array s
+    for(int i = 0; i < 10; i++)
     {
-        if(input%2 == 0)    //uses mod to determin if the remainder is 0 or 1 if 0 the input is even, 1 if the input is odd.
+        s[i].steps = 0;
+        s[i].num = 0;
+    }
+
+    //calculates the numbers with the largest amount of steps and stores them in array s
+    while(input != 0)
+    {
+        int stepnum = numOfSteps(input);
+        int index = smallestIndex(s);
+        if(stepnum > s[index].steps)    
         {
-            input = input/2;
-            cout << input << endl;
-            //cout << input << " is even." << endl;
+            s[index].steps = stepnum;
+            s[index].num = input;
+        }
+        input--;
+    }
+
+    cout << "Sorted based on sequence length: " << endl;
+    sort(s,s+10, [](numbers a, numbers b) { return a.steps > b.steps;});
+    for(int i = 0; i < 10; i++)
+    {
+        cout << s[i].num << "        " << s[i].steps << endl;
+    }
+    cout << "Sorted based on integer size: " << endl;
+    sort(s,s+10, [](numbers a, numbers b) { return a.num > b.num;});
+    for(int i = 0; i < 10; i++)
+    {
+        cout << s[i].num << "        " << s[i].steps << endl;
+    }
+
+}
+
+int numOfSteps(int in)
+{
+    int count = 0;
+    while(in > 1)
+    {
+        if(in%2 == 0)    //uses mod to determine if the remainder is 0 or 1 if 0 the input is even, 1 if the input is odd.
+        {
+            in = in/2;
         }
         else
         {
-            input = (input*3)+1;
-            cout << input << endl;
-            //cout << input << " is odd." << endl;
+            in = in*3 + 1;
         }
         count = count + 1;
     }
-    cout << "Count of numbers in the sequence: " << count << endl;
+    
+    return count;
+}
+
+
+int smallestIndex(struct numbers (& array)[10]) 
+{
+    int smallestIndex;
+    int smallest = array[0].steps;
+    for(int i=0; i < 10; i++)
+    {
+        if(array[i].steps <= smallest)
+        {
+            smallest = array[i].steps;
+            smallestIndex = i;
+        }
+    }
+                                                                                                                                   
+    return smallestIndex;
 }
