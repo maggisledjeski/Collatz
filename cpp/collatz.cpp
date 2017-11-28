@@ -26,11 +26,33 @@ int main ()
     while(input != 0)
     {
         int stepnum = numOfSteps(input);
-        int index = smallestIndex(s);
-        if(stepnum > s[index].steps)    
+        //int index = smallestIndex(s);
+        bool dup = false;
+        int dupIndex = 0;
+        int smallestIndex = 0;
+        int smallest = s[0].steps;
+        for(int i=0; i < 10; i++)
+        {
+            if(s[i].steps <= smallest)
+            {
+                smallest = s[i].steps;
+                smallestIndex = i;
+            }
+            if(s[i].steps == stepnum)
+            {
+                dup = true;
+                dupIndex = i;
+            }
+        }
+        int index = smallestIndex; 
+        if(stepnum > s[index].steps && dup == false)    
         {
             s[index].steps = stepnum;
             s[index].num = input;
+        }
+        if(input < s[dupIndex].steps && dup == true)
+        {
+            s[dupIndex].num = input;
         }
         input--;
     }
@@ -67,21 +89,4 @@ int numOfSteps(int in)
     }
     
     return count;
-}
-
-
-int smallestIndex(struct numbers (& array)[10]) 
-{
-    int smallestIndex;
-    int smallest = array[0].steps;
-    for(int i=0; i < 10; i++)
-    {
-        if(array[i].steps <= smallest)
-        {
-            smallest = array[i].steps;
-            smallestIndex = i;
-        }
-    }
-                                                                                                                                   
-    return smallestIndex;
 }
