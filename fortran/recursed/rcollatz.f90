@@ -1,15 +1,13 @@
 program rcollatz
   implicit none
  
-    integer, dimension(10) :: numArray
-    integer, dimension(10) :: stepArray
-    integer :: i,val,input,control,steps,dup,smallIndex,small,dupIndex,seq_length
-!    external seq_length
+    integer(kind=16), dimension(10) :: numArray
+    integer(kind=16), dimension(10) :: stepArray
+    integer(kind=16) :: i,val,input,control,steps,dup,smallIndex,small,dupIndex
+    integer(kind=16) :: seq_length
+    external seq_length
     read*,input
-    print*,input
     control = input
-    print*,control
-
     do i=1,10
         numArray(i) = 0
         stepArray(i) = 0
@@ -18,19 +16,7 @@ program rcollatz
     do while(control .gt. 1)
         input = control
         i = input
-!        steps = 0
-!        do while(input .gt. 1)
-!            if(mod(input,2) == 0) then
-!                input = input / 2
-!            else
-!                input = input * 3 + 1
-!            end if
-!            steps = steps + 1
-!        end do
-!        input = control
-        print*,i
         steps = seq_length(i)
-        print*,"help"
         dup = 0
         dupIndex = 1
         smallIndex = 1
@@ -57,21 +43,18 @@ program rcollatz
     
     do i=1,10
         print*,i,"    ",numArray(i),"    ",stepArray(i)
-    end do 
-    print*, "input=",control,"  steps=",steps
-    
+    end do     
 end program rcollatz
 
-recursive subroutine seq_length(i,val)
-integer :: i,val
-if(mod(i,2) == 0) then
-    val = seq_length(i / 2)
-else if(mod(i,2) == 1) then
-    val = seq_length(i * 3 + 1)
-else 
-    val = 1
-    return
-end if
-
-end subroutine seq_length
+recursive integer(kind=16) function seq_length(i) result(val)
+    integer(kind=16) :: i
+    if(i == 1) then
+        val = 0
+        return
+    else if(mod(i,2) == 0) then
+        val = seq_length(i / 2) + 1
+    else 
+        val = seq_length(i * 3 + 1) + 1
+    end if
+end function seq_length
 
