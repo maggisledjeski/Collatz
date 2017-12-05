@@ -26,7 +26,7 @@ while j > 1
     dIndex = Int8(1)
     sIndex = Int8(1)
     small = Int64(sArray[1])
-    for k 1:10
+    for k in 1:10
         if(sArray[k] < small)
             small = sArray[k]
             sIndex = k
@@ -36,19 +36,19 @@ while j > 1
             dIndex = k
         end
     end
-    if(ic > sArray[sIndex] && dupF = 0)
+    if(ic > sArray[sIndex] && dupF == 0)
         sArray[sIndex] = ic
         nArray[sIndex] = i
     end
-    if(i < nArray[dIndex] && dupF = 1)
+    if(i < nArray[dIndex] && dupF == 1)
         nArray[dIndex] = i
     end
     j -= 1
 end
 
-#=for x 1:10
+for x in 1:10
     println(nArray[x],"     ",sArray[x])
-end=#
+end
 exit(0)
 
 
