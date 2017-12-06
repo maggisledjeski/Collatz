@@ -1,5 +1,5 @@
-function stepCount(i)
-    i == 1 && return 1 
+function stepCount(i::Int128)
+    i == 1 && return 0 
     return i = i&1 == 0 ? 1 + stepCount(i >> 1) : 1 + stepCount(3*i + 1) 
 end
 
