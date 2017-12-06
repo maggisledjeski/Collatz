@@ -4,8 +4,8 @@ using System.Linq;
 
 public struct number 
 {
-    public int num;
-    public int steps;
+    public ulong num;
+    public ulong steps;
 }
 
 public class Rcollatz
@@ -13,9 +13,9 @@ public class Rcollatz
     static public void Main()
     {
         number [] numbers = new number[10];
-        int input;  //user input
-        Console.WriteLine("Enter a positive integer: ");
-        input = Convert.ToInt32(Console.ReadLine());
+        ulong input = 10000;  //user input
+        //Console.WriteLine("Enter a positive integer: ");
+        //input = Convert.ToInt32(Console.ReadLine());
  
         for(int i = 0; i < 10; i++)
         {
@@ -23,16 +23,16 @@ public class Rcollatz
             numbers[i].steps = 0;
         }
         
-        int control = input;
+        ulong control = input;
 
         while(control != 0)
         {               
             input = control;
-            int count = seq_length(input);
+            ulong count = seq_length(input);
             bool dup = false;
             int dupIndex = 0;
             int smallestIndex = 0;
-            int smallest = numbers[0].steps;
+            ulong smallest = numbers[0].steps;
             for(int i=0; i < 10; i++)
             {
                 if(numbers[i].steps <= smallest)
@@ -72,22 +72,22 @@ public class Rcollatz
         }
     } 
 
-    public static int seq_length(int input)
+    public static ulong seq_length(ulong input)
     {
-    int count = 0;
-    if (input == 1)
-    {
+        ulong count = 0;
+        if (input == 1)
+        {
+            return count;
+        }
+        else if (input % 2 == 0)
+        {
+            count = seq_length(input / 2) + 1;
+        }
+        else
+        {
+            count = seq_length(3*input + 1) + 1;
+        }
         return count;
-    }
-    else if (input % 2 == 0)
-    {
-        count = seq_length(input / 2) + 1;
-    }
-    else
-    {
-        count = seq_length(3*input + 1) + 1;
-    }
-    return count;
     }
 }
 

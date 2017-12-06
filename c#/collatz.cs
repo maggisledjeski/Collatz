@@ -4,8 +4,8 @@ using System.Linq;
 
 public struct number 
 {
-    public int num;
-    public int steps;
+    public ulong num;
+    public ulong steps;
 }
 
 public class Diffusion
@@ -13,9 +13,9 @@ public class Diffusion
     static public void Main()
     {
         number [] numbers = new number[10];
-        int input;  //user input
-        Console.WriteLine("Enter a positive integer: ");
-        input = Convert.ToInt32(Console.ReadLine());
+        ulong input = 10000;  //user input
+//        Console.WriteLine("Enter a positive integer: ");
+//        input = Convert.ToUlong(Console.ReadLine());
  
         for(int i = 0; i < 10; i++)
         {
@@ -23,14 +23,14 @@ public class Diffusion
             numbers[i].steps = 0;
         }
         
-        int control = input;
+        ulong control = input;
 
         while(control != 0)
         {               
-            int count = 0;
+            ulong count = 0;
             input = control;
             while(input > 1)
-            {
+            {                
                 if(input%2 == 0)
                 {
                     input = input/2;
@@ -45,7 +45,7 @@ public class Diffusion
             bool dup = false;
             int dupIndex = 0;
             int smallestIndex = 0;
-            int smallest = numbers[0].steps;
+            ulong smallest = numbers[0].steps;
             for(int i=0; i < 10; i++)
             {
                 if(numbers[i].steps <= smallest)
