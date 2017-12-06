@@ -1,21 +1,22 @@
-with Ada.Text_IO, Ada.Integer_Text_IO;
+with Ada.Text_IO, Ada.Integer_Text_IO,Ada.Long_Long_Integer_Text_IO;
 use  Ada.Text_IO, Ada.Integer_Text_IO;
 procedure collatz is
 
     type Number is
         record
-            num : Integer;--INTEGER range 1..10000;
-            steps : Integer;--INTEGER range 1..10000;
+            num : Long_Long_Integer;--INTEGER range 1..10000;
+            steps : Long_Long_Integer;--INTEGER range 1..10000;
         end record;
 
     Numbers : array(1..10) of Number;
 
-
-    I,control,count,dup,dupIndex,smallIndex,small : Integer;
+    I,control,count,small : Long_Long_Integer;
+    dup,dupIndex,smallIndex : Integer;
 begin
-    Ada.Text_IO.Put("Enter an integer: ");
-    Ada.Integer_Text_IO.Get(I);
-    Ada.Text_IO.Put_Line(Integer'Image(I));
+    --Ada.Text_IO.Put("Enter an integer: ");
+    --Ada.Integer_Text_IO.Get(I);
+    --Ada.Text_IO.Put_Line(Integer'Image(I));
+    I := 10000;
     for Index in 1..10 loop
         Numbers(Index).num := 0;
         Numbers(Index).steps := 0;        
@@ -58,8 +59,8 @@ begin
     end loop;
     
     for i in Numbers'RANGE loop
-        Put(Numbers(i).num);
-        Put(Numbers(i).steps);
+        Ada.Text_IO.Put(Long_Long_Integer'Image(Numbers(i).num));
+        Ada.Text_IO.Put(Long_Long_Integer'Image(Numbers(i).steps));
         New_Line;
     end loop;
 

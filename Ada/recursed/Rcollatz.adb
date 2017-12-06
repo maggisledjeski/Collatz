@@ -4,15 +4,15 @@ procedure Rcollatz is
 
     type Number is
         record
-            num : Integer;
-            steps : Integer;
+            num : Long_Long_Integer;
+            steps : Long_Long_Integer;
         end record;
 
     Numbers : array(1..10) of Number;
     
-    function seq_length(Val : INTEGER) return INTEGER;
-    n : Integer;
-    function seq_Length(Val : INTEGER) return INTEGER is
+    function seq_length(Val : Long_Long_INTEGER) return Long_Long_INTEGER;
+    n : Long_Long_Integer;
+    function seq_Length(Val : Long_Long_INTEGER) return Long_Long_INTEGER is
     begin
         n := 0; 
         if Val <= 1 then
@@ -25,12 +25,15 @@ procedure Rcollatz is
         end if;
         return n; 
     end seq_length;
-
-    I,control,count,dup,dupIndex,smallIndex,small : Integer;
+    I,count,control,small : Long_Long_Integer;
+    dup,dupIndex,smallIndex : Integer;
 begin
-    Ada.Text_IO.Put("Enter an integer: ");
-    Ada.Integer_Text_IO.Get(I);
-    Ada.Text_IO.Put_Line(Integer'Image(I));
+    --Ada.Text_IO.Put("Enter an integer: ");
+    --Ada.Integer_Text_IO.Get(I);
+    --Ada.Text_IO.Put_Line(Integer'Image(I));
+    
+    I := 10000;
+    
     for Index in 1..10 loop
         Numbers(Index).num := 0;
         Numbers(Index).steps := 0;        
@@ -64,8 +67,8 @@ begin
     end loop;
     
     for i in Numbers'RANGE loop
-        Put(Numbers(i).num);
-        Put(Numbers(i).steps);
+        Ada.Text_IO.Put(Long_Long_Integer'Image(Numbers(i).num));
+        Ada.Text_IO.Put(Long_Long_Integer'Image(Numbers(i).steps));
         New_Line;
     end loop;
 
