@@ -3,18 +3,16 @@
 using namespace std;
 
 struct numbers {
-    int num;
-    int steps;
+    long long num;
+    long long steps;
 } s[10];
 
-int smallestIndex(struct numbers (& array)[10]);    //returns the index of the number with the smallest amount of steps
-int numOfSteps(int in); //returns the number of steps per sequence for a number
 int main ()
 {
-    int input;      //user input number range number
-    cout << "Enter a positive range number: " << endl;
-    cin >> input;
-    
+//    int input;      //user input number range number
+//    cout << "Enter a positive range number: " << endl;
+//    cin >> input;
+    long long input = 10000;
     //fills array s
     for(int i = 0; i < 10; i++)
     {
@@ -25,12 +23,25 @@ int main ()
     //calculates the numbers with the largest amount of steps and stores them in array s
     while(input != 0)
     {
-        int stepnum = numOfSteps(input);
-        //int index = smallestIndex(s);
+        long long n = input;
+        long long count = 0;
+        while(n > 1)
+        {
+            if(n%2 == 0)    //uses mod to determine if the remainder is 0 or 1 if 0 the input is even, 1 if the input is odd.
+            {
+                n = n/2;
+            }
+            else
+            {
+                n = n*3 + 1;
+            }
+            count = count + 1;
+        }
+        long long stepnum = count;
         bool dup = false;
         int dupIndex = 0;
         int smallestIndex = 0;
-        int smallest = s[0].steps;
+        long long smallest = s[0].steps;
         for(int i=0; i < 10; i++)
         {
             if(s[i].steps <= smallest)
@@ -72,9 +83,9 @@ int main ()
 
 }
 
-int numOfSteps(int in)
+long long numOfSteps(long long in)
 {
-    int count = 0;
+    long long count = 0;
     while(in > 1)
     {
         if(in%2 == 0)    //uses mod to determine if the remainder is 0 or 1 if 0 the input is even, 1 if the input is odd.

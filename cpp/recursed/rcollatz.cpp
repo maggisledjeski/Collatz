@@ -3,16 +3,16 @@
 using namespace std;
 
 struct numbers {
-    int num;
-    int steps;
+    long long num;
+    long long steps;
 } s[10];
 
-int numOfSteps(int n);
+long long numOfSteps(long long n);
 int main ()
 {
-    int input;
-    cout << "Enter a positive range number: " << endl;
-    cin >> input;
+    long long input = 10000;
+//    cout << "Enter a positive range number: " << endl;
+//    cin >> input;
 
     for(int i = 0; i < 10; i++)
     {
@@ -22,11 +22,11 @@ int main ()
 
     while(input != 0)
     {
-        int stepnum = numOfSteps(input);
+        long long stepnum = numOfSteps(input);
         bool dup = false;
         int dupIndex = 0;
         int smallestIndex = 0;
-        int smallest = s[0].steps;
+        long long smallest = s[0].steps;
         for(int i=0; i < 10; i++)
         {
             if(s[i].steps <= smallest)
@@ -68,7 +68,7 @@ int main ()
 
 }
 
-int numOfSteps(int n)
+long long numOfSteps(long long n)
 {
     if(n == 1)
     {
