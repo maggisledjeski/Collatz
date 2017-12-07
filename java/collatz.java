@@ -45,7 +45,17 @@ public class collatz {//implements Comparable<collatz>{
         {
             in = control;
             long count = 0;
-            while(in > 1)
+            while(in != 1)
+            {
+                boolean bool = false;
+                if(in % 2 == 0)
+                {
+                    bool = true;
+                }
+                in = bool ? in >> 1 : 3*in + 1;
+                count += 1;
+            }
+            /*while(in > 1)
             {
                 if(in%2 == 0)    //uses mod to determin if the remainder is 0 or 1 if 0 the input is even, 1 if the input is odd.
                 {
@@ -56,7 +66,7 @@ public class collatz {//implements Comparable<collatz>{
                     in = in*3 + 1;
                 }
                 count++;
-            }
+            }*/
             in = control;
             boolean dup = false;
             int dupIndex = 0;
