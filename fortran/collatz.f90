@@ -1,13 +1,14 @@
 program collatz
   implicit none
  
-    integer, dimension(10) :: numArray
-    integer, dimension(10) :: stepArray
-    integer :: i,input,control,steps,dup,smallIndex,small,dupIndex
-    read*,input
-    print*,input
+    integer(kind=16), dimension(10) :: numArray
+    integer(kind=16), dimension(10) :: stepArray
+    integer(kind=16) :: i,input,control,steps,small
+    integer :: dup,smallIndex,dupIndex
+    !read*,input
+    !print*,input
+    input = 10000
     control = input
-    print*,control
 
     do i=1,10
         numArray(i) = 0
@@ -51,8 +52,6 @@ program collatz
     end do
     
     do i=1,10
-        print*,i,"    ",numArray(i),"    ",stepArray(i)
-    end do 
-    print*, "input=",control,"  steps=",steps
-    
+        print*,numArray(i),"    ",stepArray(i)
+    end do  
 end program

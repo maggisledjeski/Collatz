@@ -3,10 +3,12 @@ program rcollatz
  
     integer(kind=16), dimension(10) :: numArray
     integer(kind=16), dimension(10) :: stepArray
-    integer(kind=16) :: i,val,input,control,steps,dup,smallIndex,small,dupIndex
+    integer(kind=16) :: i,val,input,control,small,steps
+    integer :: dup,smallIndex,dupIndex
     integer(kind=16) :: seq_length
     external seq_length
-    read*,input
+    !read*,input
+    input = 10000
     control = input
     do i=1,10
         numArray(i) = 0
@@ -42,7 +44,7 @@ program rcollatz
     end do
     
     do i=1,10
-        print*,i,"    ",numArray(i),"    ",stepArray(i)
+        print*,numArray(i),"    ",stepArray(i)
     end do     
 end program rcollatz
 
