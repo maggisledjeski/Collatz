@@ -3,17 +3,15 @@
 using namespace std;
 
 struct numbers {
-    long long num;
-    long long steps;
+    unsigned long long num;
+    unsigned long long steps;
 } s[10];
 
 int main ()
 {
-//    int input;      //user input number range number
-//    cout << "Enter a positive range number: " << endl;
-//    cin >> input;
-    long long input = 10000;
-    //fills array s
+    unsigned long long input = 10000;
+
+    //fills array s with each num and steps to 0
     for(int i = 0; i < 10; i++)
     {
         s[i].steps = 0;
@@ -23,25 +21,23 @@ int main ()
     //calculates the numbers with the largest amount of steps and stores them in array s
     while(input != 0)
     {
-        long long n = input;
-        long long count = 0;
+        unsigned long long n = input;
+        unsigned long long count = 0;
         while(n > 1)
         {
-            if(n%2 == 0)    //uses mod to determine if the remainder is 0 or 1 if 0 the input is even, 1 if the input is odd.
+            bool b = false;
+            if(n%2 == 0)
             {
-                n = n/2;
+                b = true;
             }
-            else
-            {
-                n = n*3 + 1;
-            }
-            count = count + 1;
+            n = b ? n >> 1 : 3*n + 1;
+            count += 1;
         }
-        long long stepnum = count;
+        unsigned long long stepnum = count;
         bool dup = false;
         int dupIndex = 0;
         int smallestIndex = 0;
-        long long smallest = s[0].steps;
+        unsigned long long smallest = s[0].steps;
         for(int i=0; i < 10; i++)
         {
             if(s[i].steps <= smallest)
@@ -83,21 +79,3 @@ int main ()
 
 }
 
-long long numOfSteps(long long in)
-{
-    long long count = 0;
-    while(in > 1)
-    {
-        if(in%2 == 0)    //uses mod to determine if the remainder is 0 or 1 if 0 the input is even, 1 if the input is odd.
-        {
-            in = in/2;
-        }
-        else
-        {
-            in = in*3 + 1;
-        }
-        count = count + 1;
-    }
-    
-    return count;
-}
