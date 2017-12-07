@@ -2,28 +2,28 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.Arrays;
 public class Rcollatz {
-    int num;
-    int steps;
-    public void setSteps(int s)
+    long num;
+    long steps;
+    public void setSteps(long s)
     {
         steps = s;
     }
-    public void setNum(int n)
+    public void setNum(long n)
     {
         num = n;
     }
-    public int getSteps()
+    public long getSteps()
     {
         return steps;
     }
-    public int getNum()
+    public long getNum()
     {
         return num;
     }
 
-    public static int seq_length(int n) 
+    public static long seq_length(long n) 
     {
-        int count = 0;
+        long count = 0;
         if (n == 1) 
         {
             return count;
@@ -41,12 +41,12 @@ public class Rcollatz {
 
     public static void main(String[] args)  
     {
-        Scanner reader = new Scanner(System.in);
-        System.out.println("Enter a number: ");
-        int in = reader.nextInt();
-        reader.close();
-        
-        int control = in;
+        //Scanner reader = new Scanner(System.in);
+        //System.out.println("Enter a number: ");
+        //int in = reader.nextInt();
+        //reader.close();
+        long in = 10000;
+        long control = in;
         Rcollatz [] numbers = new Rcollatz[10];
 
         for(int i = 0; i < 10; i++)
@@ -59,11 +59,11 @@ public class Rcollatz {
         while(control != 0)
         {
             in = control;
-            int count = seq_length(in);
+            long count = seq_length(in);
             boolean dup = false;
             int dupIndex = 0;
             int smallIndex = 0;
-            int small = numbers[0].getSteps();
+            long small = numbers[0].getSteps();
             for(int i=0; i < 10; i++)
             {
                 if(numbers[i].getSteps() <= small)

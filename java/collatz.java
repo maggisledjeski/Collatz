@@ -2,21 +2,21 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.Arrays;
 public class collatz {//implements Comparable<collatz>{
-    int num;
-    int steps;
-    public void setSteps(int s)
+    long num;
+    long steps;
+    public void setSteps(long s)
     {
         steps = s;
     }
-    public void setNum(int n)
+    public void setNum(long n)
     {
         num = n;
     }
-    public int getSteps()
+    public long getSteps()
     {
         return steps;
     }
-    public int getNum()
+    public long getNum()
     {
         return num;
     }
@@ -24,13 +24,14 @@ public class collatz {//implements Comparable<collatz>{
 
     public static void main(String[] args)  
     {
-        Scanner reader = new Scanner(System.in);  //will read the user input
-        System.out.println("Enter a number: ");
-        int in = reader.nextInt(); //will scan the next token of the input as an int.once finished
-        reader.close();     //closer the scanner
+        //Scanner reader = new Scanner(System.in);  //will read the user input
+        //System.out.println("Enter a number: ");
+        //int in = reader.nextInt(); //will scan the next token of the input as an int.once finished
+        //reader.close();     //closer the scanner
 
-        System.out.println(in);  //prints the user input
-        int control = in;
+        //System.out.println(in);  //prints the user input
+        long in = 10000;
+        long control = in;
         collatz [] numbers = new collatz[10];
 
         for(int i = 0; i < 10; i++)
@@ -43,7 +44,7 @@ public class collatz {//implements Comparable<collatz>{
         while(control != 0)
         {
             in = control;
-            int count = 0;
+            long count = 0;
             while(in > 1)
             {
                 if(in%2 == 0)    //uses mod to determin if the remainder is 0 or 1 if 0 the input is even, 1 if the input is odd.
@@ -60,10 +61,10 @@ public class collatz {//implements Comparable<collatz>{
             boolean dup = false;
             int dupIndex = 0;
             int smallestIndex = 0;
-            int smallest = numbers[0].getSteps();
+            long smallest = numbers[0].getSteps();
             for(int i=0; i < 10; i++)
             {
-                if(numbers[i].getSteps() <= smallest)// && numbers[i].getSteps() != count)
+                if(numbers[i].getSteps() <= smallest)
                 {
                     smallest = numbers[i].getSteps();
                     smallestIndex = i;
