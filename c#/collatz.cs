@@ -28,7 +28,7 @@ public class Collatz
         while(control != 0)
         {               
             ulong count = 0;    //sets the step count to 0
-            input = control;    //sets in to the control (current sequence number), to make sure the current sequence number is being tested
+            input = control;    //sets input to the control (current sequence number), to make sure the current sequence number is being tested
             while(input > 1)    //compute the sequence count until input = 1
             {                
                 if(input%2 == 0)    //tests is input is even
@@ -41,7 +41,7 @@ public class Collatz
                 }
                 count++;    //increments the step count
             }    
-            input = control;    //resets in to be equal to the current sequence number
+            input = control;    //resets input to be equal to the current sequence number
             bool dup = false;   //duplicate flag
             int dupIndex = 0;   //index of a number with a duplicate step count
             int smallestIndex = 0;  //index with the smallest number of steps
