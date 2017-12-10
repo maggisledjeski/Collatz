@@ -1,107 +1,142 @@
 import java.io.*;
-import java.util.Scanner;
 import java.util.Arrays;
-public class collatz {//implements Comparable<collatz>{
-    long num;
-    long steps;
-    public void setSteps(long s)
+
+public class collatz {      //a class that holds both a number that will go into the collatz sequence and the step count to finish that sequence
+    long num;   //number that goes into the collatz sequence (sequence number)
+    long steps; //step count to finish sequence (step count)
+    public void setSteps(long s)    //method to set the number of steps
     {
         steps = s;
     }
-    public void setNum(long n)
+    public void setNum(long n)  //method to set the sequence number
     {
         num = n;
     }
-    public long getSteps()
+    public long getSteps()  //method to get the number of steps
     {
         return steps;
     }
-    public long getNum()
+    public long getNum()    //method to get the sequence number
     {
         return num;
     }
-
-
+    
     public static void main(String[] args)  
     {
-        //Scanner reader = new Scanner(System.in);  //will read the user input
-        //System.out.println("Enter a number: ");
-        //int in = reader.nextInt(); //will scan the next token of the input as an int.once finished
-        //reader.close();     //closer the scanner
+        long in = 10000;    //***in is the starting sequence number***
+        long control = in;  //variable that controls when the all of the sequence numbers have been tested
+        collatz [] numbers = new collatz[10];   //an array of collatz objects to store the top 10 highest sequence numbers with the highest step counts
 
-        //System.out.println(in);  //prints the user input
-        long in = 10000;
-        long control = in;
-        collatz [] numbers = new collatz[10];
-
+        //fills the array with collatz objects and sets the sequence number and step count to 0
         for(int i = 0; i < 10; i++)
         {
             numbers[i] = new collatz();
             numbers[i].setSteps(0);
             numbers[i].setNum(0);
         }
-        
+
+        //uses the control variable to stop the while loop until every sequence number starting from in is tested
         while(control != 0)
         {
-            in = control;
-            long count = 0;
-            while(in != 1)
+            in = control;   //sets in to the control (current sequence number), to make sure the current sequence number is being tested
+            long count = 0; //step count
+            while(in != 1)  //compute the sequence count until in = 1
             {
                 boolean bool = false;
-                if(in % 2 == 0)
+                if(in % 2 == 0) //tests if in is even
                 {
                     bool = true;
                 }
-                in = bool ? in >> 1 : 3*in + 1;
-                count += 1;
+                in = bool ? in >> 1 : 3*in + 1; //bitwise function that executes in/2(bit-shift) if bool is true, and 3*in +1 if bool is false
+                count += 1; //increments the step count
             }
-            /*while(in > 1)
-            {
-                if(in%2 == 0)    //uses mod to determin if the remainder is 0 or 1 if 0 the input is even, 1 if the input is odd.
-                {
-                    in = in/2;
-                }
-                else
-                {
-                    in = in*3 + 1;
-                }
-                count++;
-            }*/
-            in = control;
-            boolean dup = false;
-            int dupIndex = 0;
-            int smallestIndex = 0;
-            long smallest = numbers[0].getSteps();
+            in = control;   //resets in to be equal to the current sequence number
+            boolean dup = false;    //duplicate flag
+            int dupIndex = 0;   //index of a number with a duplicate step count
+            int smallestIndex = 0;  //index with the smallest number of steps
+            long smallest = numbers[0].getSteps();  //number with the smallest step count
+            
+            //goes through the array numbers to see which element has the smallest step count and if there are duplicate sequence numbers with the same 
+            //step count
             for(int i=0; i < 10; i++)
             {
-                if(numbers[i].getSteps() <= smallest)
+                if(numbers[i].getSteps() <= smallest)   //checks to see which element has the smallest step count
                 {
-                    smallest = numbers[i].getSteps();
-                    smallestIndex = i;
+                    smallest = numbers[i].getSteps();   //reassigns the number with the smallest number of steps
+                    smallestIndex = i;  //saves the index with the smallest number of steps
                 }
-                if(numbers[i].getSteps() == count)
+                if(numbers[i].getSteps() == count)  //checks to see if there is a number in the array with the same step count as the current sequence number
                 {
-                    dup = true;
-                    dupIndex = i;
+                    dup = true;     //sets the duplicate flag to true
+                    dupIndex = i;   //saves the index where the duplicate step count occurs
                 }
             }
-            int index = smallestIndex;
-            if(count > numbers[index].getSteps() && dup == false)    
+            
+            //if the current sequence number being tested has a higher step count than the smallest step count in the array and the step count is not 
+            //a duplicate replace the information at the smallest index to match the current sequence number
+            if(count > numbers[smallestIndex].getSteps() && dup == false)    
             {
-                numbers[index].setSteps(count);
-                numbers[index].setNum(in);
+                numbers[smallestIndex].setSteps(count);
+                numbers[smallestIndex].setNum(in);
             }
+            
+            //if the current sequence number being tested is < the sequence number at the duplicate index and the duplicate flag is true, set the number 
+            //at the duplicate index to the current sequence number
             if(in < numbers[dupIndex].getNum() && dup == true)
             {
                 numbers[dupIndex].setNum(in);
             }
-            control--;
+            control--;  //decrement the sequence number
         }
-           
+
+        //sorts the numbers based on step count
+        System.out.println("Sorted based on step count length:");
+        int n = numbers.length;
+        for (int i = 0; i < n-1; i++)
+        {
+            for (int j = 0; j < n-i-1; j++)
+            {
+                if (numbers[j].getSteps() < numbers[j+1].getSteps())
+                {
+                    long temp = numbers[j].getSteps();
+                    long temp2 = numbers[j].getNum();
+                    numbers[j].setSteps(numbers[j+1].getSteps());
+                    numbers[j].setNum(numbers[j+1].getNum());
+                    numbers[j+1].setSteps(temp);
+                    numbers[j+1].setNum(temp2);
+                }
+            }
+        }
+        
+        //prints the numbers array to show the sequence number and the step count for that sequence number
         for(int i = 0; i < 10; i++)
         {
             System.out.println(numbers[i].getNum() + "    " + numbers[i].getSteps());
         }
 
+        //sorted the numbers based on the size of the sequence number
+        System.out.println("Sorted based on sequence number size:");
+        n = numbers.length;
+        for (int i = 0; i < n-1; i++)
+        {
+            for (int j = 0; j < n-i-1; j++)
+            {
+                if (numbers[j].getNum() < numbers[j+1].getNum())
+                {
+                    long temp = numbers[j].getNum();
+                    long temp2 = numbers[j].getSteps();
+                    numbers[j].setNum(numbers[j+1].getNum());
+                    numbers[j].setSteps(numbers[j+1].getSteps());
+                    numbers[j+1].setNum(temp);
+                    numbers[j+1].setSteps(temp2);
+                }
+            }
+        }
+
+        //prints the numbers array to show the sequence number and the step count for that sequence number
+        for(int i = 0; i < 10; i++)
+        {
+            System.out.println(numbers[i].getNum() + "    " + numbers[i].getSteps());
+        }
     }
 }
