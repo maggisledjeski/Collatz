@@ -4,18 +4,15 @@ procedure collatz is
 
     type Number is
         record
-            num : Long_Long_Integer;--INTEGER range 1..10000;
-            steps : Long_Long_Integer;--INTEGER range 1..10000;
+            num : Long_Long_Integer;
+            steps : Long_Long_Integer;
         end record;
 
     Numbers : array(1..10) of Number;
 
-    I,control,count,small : Long_Long_Integer;
-    dup,dupIndex,smallIndex : Integer;
+    I,control,count,small,temp,temp2 : Long_Long_Integer;
+    j,x,dup,dupIndex,smallIndex,size : Integer;
 begin
-    --Ada.Text_IO.Put("Enter an integer: ");
-    --Ada.Integer_Text_IO.Get(I);
-    --Ada.Text_IO.Put_Line(Integer'Image(I));
     I := 10000;
     for Index in 1..10 loop
         Numbers(Index).num := 0;
@@ -57,6 +54,23 @@ begin
         end if;
         control := control - 1;
     end loop;
+    size := 10;
+    x:=1;
+    j:=1;
+
+    Ada.Text_IO.Put_Line("Sorted by step count size:");
+    for x in 1..size loop
+        for j in 1..size-x loop
+            if Numbers(j).steps < Numbers(j+1).steps then
+                temp := Numbers(j).steps;
+                temp2 := Numbers(j).num;
+                Numbers(j).steps := Numbers(j+1).steps;
+                Numbers(j).num := Numbers(j+1).num;
+                Numbers(j+1).steps := temp;
+                Numbers(j+1).num := temp2;
+            end if;
+        end loop;
+    end loop;
     
     for i in Numbers'RANGE loop
         Ada.Text_IO.Put(Long_Long_Integer'Image(Numbers(i).num));
@@ -64,9 +78,23 @@ begin
         New_Line;
     end loop;
 
+    Ada.Text_IO.Put_Line("Sorted by sequence number size:");
+    for x in 1..size loop
+        for j in 1..size-x loop
+            if Numbers(j).num < Numbers(j+1).num then
+                temp := Numbers(j).num;
+                temp2 := Numbers(j).steps;
+                Numbers(j).num := Numbers(j+1).num;
+                Numbers(j).steps := Numbers(j+1).steps;
+                Numbers(j+1).num := temp;
+                Numbers(j+1).steps := temp2;
+            end if;
+        end loop;
+    end loop;
 
-
-    --Ada.Text_IO.Put("Count of Numbers in the sequence: ");
-    --Ada.Text_IO.Put_Line(Integer'Image(count));
-
+    for i in Numbers'RANGE loop
+        Ada.Text_IO.Put(Long_Long_Integer'Image(Numbers(i).num));
+        Ada.Text_IO.Put(Long_Long_Integer'Image(Numbers(i).steps));
+        New_Line;
+    end loop;
 end collatz;

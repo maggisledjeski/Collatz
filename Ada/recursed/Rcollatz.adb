@@ -25,8 +25,8 @@ procedure Rcollatz is
         end if;
         return n; 
     end seq_length;
-    I,count,control,small : Long_Long_Integer;
-    dup,dupIndex,smallIndex : Integer;
+    temp,temp2,I,count,control,small : Long_Long_Integer;
+    size,j,x,dup,dupIndex,smallIndex : Integer;
 begin
     --Ada.Text_IO.Put("Enter an integer: ");
     --Ada.Integer_Text_IO.Get(I);
@@ -64,6 +64,44 @@ begin
             Numbers(dupIndex).num := I;
         end if;
         control := control - 1;
+    end loop;
+
+    size := 10;
+    x:=1;
+    j:=1;
+
+    Ada.Text_IO.Put_Line("Sorted by step count size:");
+    for x in 1..size loop
+        for j in 1..size-x loop
+            if Numbers(j).steps < Numbers(j+1).steps then
+                temp := Numbers(j).steps;
+                temp2 := Numbers(j).num;
+                Numbers(j).steps := Numbers(j+1).steps;
+                Numbers(j).num := Numbers(j+1).num;
+                Numbers(j+1).steps := temp;
+                Numbers(j+1).num := temp2;
+            end if;
+        end loop;
+    end loop;
+
+    for i in Numbers'RANGE loop
+        Ada.Text_IO.Put(Long_Long_Integer'Image(Numbers(i).num));
+        Ada.Text_IO.Put(Long_Long_Integer'Image(Numbers(i).steps));
+        New_Line;
+    end loop;
+
+    Ada.Text_IO.Put_Line("Sorted by sequence number size:");
+    for x in 1..size loop
+        for j in 1..size-x loop
+            if Numbers(j).num < Numbers(j+1).num then
+                temp := Numbers(j).num;
+                temp2 := Numbers(j).steps;
+                Numbers(j).num := Numbers(j+1).num;
+                Numbers(j).steps := Numbers(j+1).steps;
+                Numbers(j+1).num := temp;
+                Numbers(j+1).steps := temp2;
+            end if;
+        end loop;
     end loop;
     
     for i in Numbers'RANGE loop
