@@ -1,23 +1,19 @@
 #! /usr/bin/perl
-##compile: collatz.pl Number.pm
 
 use warnings;
 use strict;
-use Number;
 
 print "Enter your input:\n";
 my $input = <STDIN>;
 chomp $input;
-print "Input entered: $input\n";
 
 my @numbers;
+my @steps;
 
 for(my $i = 0; $i < 10; $i = $i + 1)
 {
-    my $number = Number->new();
-    $number->set_num(0);
-    $number->set_steps(0);
-    $numbers[$i] = $number;    
+    $numbers[$i] = 0;
+    $steps[$i] = 0;    
 }
 
 my $control = $input;
@@ -48,34 +44,51 @@ while($control != 1)
     my $dup = 0;
     my $dupIndex = 0;
     my $smallIndex = 0;
-    my $small = $numbers[0]->get_steps();
+    my $small = $steps[0];
     for(my $i = 0; $i < 10; $i = $i + 1)
     {
-        if($numbers[$i]->get_steps() <= $small)
+        if($steps[$i] <= $small)
         {
-            $small = $numbers[$i]->get_steps();
+            $small = $steps[$i];
             $smallIndex = $i;
         }
-        if($numbers[$i]->get_steps() == $count)
+        if($steps[$i] == $count)
         {
             $dup = 1;
             $dupIndex = $i;
         }
     }
-    if($count > $numbers[$smallIndex]->get_steps() && $dup == 0)    
+    if($count > $steps[$smallIndex] && $dup == 0)    
     {
-        $numbers[$smallIndex]->set_steps($count);
-        $numbers[$smallIndex]->set_num($input);
+        $steps[$smallIndex] = $count;
+        $numbers[$smallIndex] = $input;
     }
-    if($input < $numbers[$dupIndex]->get_num() && $dup == 1)
+    if($input < $numbers[$dupIndex] && $dup == 1)
     {
-        $numbers[$dupIndex]->set_num($input);
+        $numbers[$dupIndex] = $input;
     }
     $control = $control - 1;
 }
 
+print "Sorted by step count size:\n";
+my @index = sort { $steps[$b] <=> $steps[$a] } 0 .. $#steps;
+
+@steps = @steps[@index];
+@numbers = @numbers[@index];
+
 for(my $a = 0; $a < 10; $a = $a + 1)
 {
-    print STDOUT $numbers[$a]->get_num(), "    ",$numbers[$a]->get_steps(), "\n";
+    print $numbers[$a], "    ",$steps[$a], "\n";
+}
+
+print "Sorted by sequence number size:\n";
+my @index2 = sort { $numbers[$b] <=> $numbers[$a] } 0 .. $#numbers;
+
+@steps = @steps[@index2];
+@numbers = @numbers[@index2];
+
+for($a = 0; $a < 10; $a = $a + 1)
+{
+    print $numbers[$a], "    ",$steps[$a], "\n";
 }
 
